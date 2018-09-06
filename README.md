@@ -17,6 +17,10 @@ Naught includes features such as:
 
 ###### Warning: You cannot use these GearSwap files located in `data/` without the `Naught` Library.
 
+##### Recommended Text Editor and Plugins
+
+For best/most efficient results, use Atom text editor with the lua-language and  custom-folds plugins installed.
+
 ##### Naught Library Installation
 
 Copy the files located in `libs/` to your `Windower4/addons/GearSwap/libs/` folder.
