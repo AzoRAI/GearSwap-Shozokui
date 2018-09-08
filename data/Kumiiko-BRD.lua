@@ -229,7 +229,7 @@ function job_precast(spell, action, spellMap, eventArgs)
       local spell_recasts = windower.ffxi.get_spell_recasts()
       if spell_recasts[spell.recast_id] < 2 then
         ja_before_spell("Pianissimo", spell)
-        eventArts.cancel = true
+        eventArgs.cancel = true
         return
       end
     end
