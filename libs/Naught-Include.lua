@@ -72,6 +72,7 @@ function file_unload()
     user_unbind()
   end
 
+  disable_blinkmenot()
 end
 
 function bind_key(key, command, ctrl, alt)
@@ -110,6 +111,12 @@ end
 
 function engage_blinkmenot()
   send_command("wait 6; du blinking all always on")
+end
+
+function disable_blinkmenot()
+  if info.UseBlinkMeNot == true then
+    send_command("du blinking all always off")
+  end
 end
 
 -- Call setup
