@@ -19,6 +19,9 @@ function init_include()
 
   -- Include the bard library
   include('Naught-Bard.lua')
+  include('no_interruptions.lua')
+  include('spam_protection.lua')
+  include('how_about_no.lua')
 
   -- Let the play know what's going on
   echo_status()

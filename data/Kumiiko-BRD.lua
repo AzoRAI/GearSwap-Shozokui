@@ -1,3 +1,15 @@
+--[[
+
+Copyright 2018, Joshua Tyree
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+]]
+
 -- <editor-fold> Initialization
 
 function get_sets()
@@ -18,7 +30,7 @@ function job_setup()
   state.Buff.Troubadour = buffactive['Troubadour'] or false
   state.Buff.Nightingale = buffactive['Nightingale'] or false
   state.Buff.ClarionCall = buffactive['Clarion Call'] or false
-  state.Buff.SoulValue = buffactive['Soul Voice'] or false
+  state.Buff.SoulVoice = buffactive['Soul Voice'] or false
 end
 
 function user_setup()
@@ -68,6 +80,7 @@ function user_keybinds()
   bind_key('f10', 'gs c cycle CastingMode')
   bind_key('f11', 'gs c cycle HybridMode')
   bind_key('f12', 'gs c cycle IdleMode')
+  bind_key('0', 'input /equip range "Marsyas"; input /echo [Marsyas Equipped]')
 end
 
 function user_unbind()
@@ -172,6 +185,8 @@ function spell_sets()
   sets.midcast['SongRecast'] = set_combine(sets.precast.FC, {
     legs="Aoidos' Rhingrave"
   })
+
+  sets.midcast['Honor March'] = set_combine(sets.midcast['SongBuff'], {range="Marsyas"})
 
   -- Extra Songs
   sets.midcast['Dummy'] = {
