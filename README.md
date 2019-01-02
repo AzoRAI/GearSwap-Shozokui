@@ -13,6 +13,7 @@ Naught includes features such as:
 * Helper fuctions for binding keys `bind_key(key, command, ctrl?, alt?)` and `unbind(key)`
 * Automatic Lockstyle
 * Automatic BlinkMeNot
+* Integrated Anchor system
 * Helpers for using a JA before spell or other ability `ja_before_spell(ja, spell)`
 
 ###### Warning: You cannot use these GearSwap files located in `data/` without the `Naught` Library.
