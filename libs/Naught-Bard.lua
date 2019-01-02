@@ -278,7 +278,9 @@ function reset_custom_timers()
 end
 
 function get_song_map(spell)
-  if set.contains(spell.targets, 'Enemy') then
+  if spell.en:contains("Ballad") then
+    return "SongBuff"
+  elseif set.contains(spell.targets, 'Enemy') then
     if state.CastingMode.value == 'Resistant' then
       retun 'SongDebuffResistant'
     else

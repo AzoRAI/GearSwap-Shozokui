@@ -80,7 +80,6 @@ function user_keybinds()
   bind_key('f10', 'gs c cycle CastingMode')
   bind_key('f11', 'gs c cycle HybridMode')
   bind_key('f12', 'gs c cycle IdleMode')
-  bind_key('0', 'input /equip range "Marsyas"; input /echo [Marsyas Equipped]')
 end
 
 function user_unbind()
