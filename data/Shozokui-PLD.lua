@@ -566,9 +566,17 @@ function buff_sets()
   }
 end
 
+function ws_sets()
+  sets.precast.WS['Chant du Cygne'] = {}
+  sets.precast.WS['Savage Blade'] = {}
+  sets.precast.WS['Requiescat'] = {}
+  sets.precast.WS['Atonement'] = {}
+end
+
 function init_gear_sets()
   idle_sets()
   tp_sets()
+  ws_sets()
   ja_sets()
   spell_sets()
   buff_sets()
