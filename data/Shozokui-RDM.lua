@@ -143,6 +143,7 @@ function idle_sets()
 end
 
 function ja_sets()
+  sets.precast.JA['Chainspell'] = {body="Vitiation Tabard"}
 end
 
 function spell_sets()
@@ -155,7 +156,7 @@ function spell_sets()
     body={ name="Vitiation Tabard", augments={'Enhances "Chainspell" effect',}},
     legs="Aya. Cosciales +2", feet={ name="Merlinic Crackows", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','"Conserve MP"+1','INT+6','"Mag.Atk.Bns."+11',}},
     left_ear="Etiolation Earring", right_ear="Loquac. Earring",
-    right_ear="Loquac. Earring", left_ring="Prolix Ring",
+    left_ring="Prolix Ring", right_ring="Kishar Ring",
     waist="Witful Belt", back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
   }
   -- Fast Recast
@@ -238,6 +239,8 @@ function spell_sets()
   sets.midcast['Bio III'] = set_combine(sets.midcast.EnfeeblingMagic, {legs="Vitiation Tights"})
   sets.midcast['Paralyze II'] = set_combine(sets.midcast.EnfeeblingMagic, {feet="Vitiation boots +1"})
   sets.midcast['Stun'] = sets.midcast.MagicAccuracy
+  sets.midcast['Frazzle II'] = sets.midcast.MagicAccuracy
+  sets.midcast['Frazzle III'] = sets.midcast.EnfeeblingMagic
 
   ---- Enhancing Magic
   sets.midcast.Enhancing = {
