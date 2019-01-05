@@ -454,4 +454,58 @@ function job_get_spell_map(spell, default_map)
   return default_map
 end
 
+
+function adjust_jump_mode()
+  if pet.isvalid == false and state.JumpMode.value == "Spirit" then
+    send_command("gs c set JumpMode Normal")
+    windower.add_to_chat(67, "Player has no valid Pet")
+  end
+end
+
+
+function job_pretarget(spell, action, spellMap, eventArgs)
+  -- When you don't have a pet, you want to use normal jumps instead of spirit jumps
+  adjust_jump_mode()
+
+  local contains = function(arr, item)
+    for i=1,#arr do
+      if arr[i] == item then
+        return true
+      end
+    end
+    return false
+  end
+
+  local index_of = function(arr, item)
+    for i,v in ipairs(arr) do
+      if v == item then
+        return i
+      end
+    end
+    return -1
+  end
+
+  jmps = {'Jump', 'Spirit Jump', 'High Jump', 'Soul Jump'}
+  jmp_map = {
+    Normal={'Jump', 'High Jump'},
+    Spirit={'Spirit Jump', 'Soul Jump'}
+  }
+  mode_inverse = {
+    Normal='Spirit',
+    Spirit='Normal'
+  }
+
+  if contains(jmps, spell.english) then -- It's a jump spell
+    if contains(jmp_map[state.JumpMode.value], spell.english) == false then -- It's not for this set
+      inverse_mode = mode_inverse[state.JumpMode.value]
+      inverse_map = jmp_map[inverse_mode]
+      inverse_idx = index_of(inverse_map, spell.english)
+      jmp = jmp_map[state.JumpMode.value][inverse_idx]
+
+      cancel_spell()
+      send_command(jmp)
+    end
+  end
+end
+
 -- </editor-fold>
