@@ -272,7 +272,10 @@ function ja_sets()
     right_ring="Niqmaddu Ring",
     back={ name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
   }
-  sets.precast.JA.Angon = {hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},}
+  sets.precast.JA.Angon = {
+    ammo="Angon",
+    hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}}
+  }
   sets.precast.JA.SpiritLink = {
     head="Vishap Armet +2",
     hands="Peltast's Vambraces +1",
