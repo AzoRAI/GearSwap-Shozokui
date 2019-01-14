@@ -1,15 +1,3 @@
---[[
-
-Copyright 2018, Joshua Tyree
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-]]
-
 -- <editor-fold> Initialization
 
 function get_sets()
@@ -88,6 +76,8 @@ function user_unbind()
   unbind('f10')
   unbind('f11')
   unbind('f12')
+  unbind('0')
+  unbind(']')
 end
 
 function echo_modes()
@@ -112,7 +102,7 @@ function idle_sets()
     main="Terra's Staff", sub="Achaq Grip", range="Gjallarhorn",
 
     -- Main Slots
-    head="Aya. Zucchetto +1", body="Ayanmo Corazza +1", hands="Aya. Manopolas +1", legs="Aya. Cosciales +1", feet="Aya. Gambieras +1",
+    head="Aya. Zucchetto +2", body="Ayanmo Corazza +2", hands="Aya. Manopolas +2", legs="Aya. Cosciales +2", feet="Aya. Gambieras +2",
 
     -- Accessories
     neck="Loricate Torque", left_ear="Etiolation Earring", right_ear="Infused Earring",
@@ -147,38 +137,48 @@ function spell_sets()
     -- Accessories
     left_ear="Etiolation Earring", waist="Witful Belt", back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
   }
+  sets.precast.FC["Honor March"] = set_combine(sets.precast.FC, {range="Marsyas"})
+  -- sets.precast['Honor March'] = {range="Marsyas"}
 
   -- Buffs
   sets.midcast['SongBuff'] = {
+    main="Kali",
+    sub="Ammurapi Shield",
     range="Gjallarhorn",
     head="Brioso Roundlet",
     body="Fili Hongreline",
     hands="Brioso Cuffs",
     legs="Inyanga Shalwar +2",
     feet="Brioso Slippers +2",
-    neck="Moonbow Whistle",
+    neck="Moonbow Whistle +1",
     waist="Harfner's Sash",
     left_ear="Etiolation Earring",
     back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
   }
 
+
+
   -- Debuffs
   sets.midcast['SongDebuff'] = {
     range="Gjallarhorn",
-    head="Aya. Zucchetto +1",
-    body="Fili Hongreline",
+    head="Aya. Zucchetto +2",
+    body="Brioso Justau. +2",
     hands="Inyan. Dastanas +2",
-    legs="Inyanga Shalwar +2",
+    legs="Brioso Cannions +2",
     feet="Brioso Slippers +2",
-    neck="Deceiver's Torque",
-    waist="Harfner's Sash",
-    left_ear="Hermetic Earring",
-    right_ear="Etiolation Earring",
-    left_ring="Ayanmo Ring",
-    right_ring="Arvina Ringlet +1",
+    neck="Mnbw. Whistle +1",
+    waist="Demonry Sash",
+    left_ear="Digni. Earring",
+    right_ear="Hermetic Earring",
+    left_ring="Stikini Ring",
+    right_ring="Stikini Ring",
     back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
   }
   sets.midcast['SongDebuffResistant'] = set_combine(sets.midcast.SongDebuff, {body="Brioso Justau. +2",})
+
+  sets.midcast['Magic Finale'] = sets.midcast['SongDebuffResistant']
+
+  sets.midcast['Silence'] = sets.midcast['SongDebuff']
 
   -- Fast Recast
   sets.midcast['SongRecast'] = set_combine(sets.precast.FC, {
@@ -195,6 +195,26 @@ function spell_sets()
     head="Welkin Crown", body="Sha'ir Manteel", legs="Aya. Cosciales +1",
     -- Accessories
     left_ear="Etiolation Earring", waist="Witful Belt", back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
+  }
+
+  sets.midcast["Army's Paeon"] = sets.midcast['Dummy']
+
+  sets.midcast.Cure = {
+    main="Chatoyant Staff",
+    sub="Achaq Grip",
+    range="Gjallarhorn",
+    head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
+    body={ name="Chironic Doublet", augments={'"Resist Silence"+8','"Fast Cast"+1','INT+1 MND+1 CHR+1','Accuracy+15 Attack+15','Mag. Acc.+15 "Mag.Atk.Bns."+15',}},
+    hands="Inyan. Dastanas +2",
+    legs="Aya. Cosciales +1",
+    feet={ name="Vanya Clogs", augments={'"Cure" potency +5%','"Cure" spellcasting time -15%','"Conserve MP"+6',}},
+    neck="Nodens Gorget",
+    waist="Fucho-no-Obi",
+    left_ear="Mendi. Earring",
+    right_ear="Etiolation Earring",
+    left_ring="Sirona's Ring",
+    right_ring="Gelatinous Ring",
+    back="Solemnity Cape",
   }
 end
 
