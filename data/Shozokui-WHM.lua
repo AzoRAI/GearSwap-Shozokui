@@ -1,14 +1,3 @@
---[[
-
-Copyright 2018, Joshua Tyree
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-]]
 
 -- <editor-fold> Initialization
 
@@ -48,7 +37,7 @@ function user_setup()
   info.UseBlinkMeNot = true
 
   -- If using lockstyles, set to equipset to use
-  info.LockstyleSet = 1
+  info.LockstyleSet = 7
 
   -- Default Macro Book [Book, Page]
   info.MacroBook = {1, 2}
@@ -76,15 +65,15 @@ function user_setup()
 end
 
 function user_keybinds()
-  -- Remove default keybinds
-  clear_default_binds()
   bind_key('f9', 'gs c cycle CastingMode')
   bind_key('f12', 'gs c cycle IdleMode')
+  bind_key('`', 'gs c buff')
 end
 
 function user_unbind()
   unbind('f9')
   unbind('f12')
+  unbind('`')
 end
 
 -- </editor-fold>
@@ -112,7 +101,7 @@ function idle_sets()
 
   }
   sets.idle.PDT = set_combine(sets.idle, {
-    head="Aya. Zucchetto +1",
+    head="Aya. Zucchetto +2",
     body="Ayanmo Corazza +2",
     hands="Aya. Manopolas +2",
     legs="Aya. Cosciales +2",
@@ -127,6 +116,7 @@ end
 function spell_sets()
   sets.precast.FC = {
     ammo="Impatients",
+    neck="Voltsurge Torque",
     body="Inyanga Jubbah +2",
     legs="Aya. Cosciales +2", feet="Regal Pumps +1",
     waist="Witful Belt",
@@ -139,13 +129,20 @@ function spell_sets()
     main="Yagrush",
   })
   sets.midcast.Esuna = sets.midcast.StatusRemoval
+  sets.midcast.Erase = set_combine(sets.precast.FC, { neck="Cleric's Torque"})
   -- TODO: Fill in Divine Caress Gear
   sets.midcast.StatusRemovalCaress = {}
 
   -- TODO: Fill in more Cursna Gear
   sets.midcast.Cursna = set_combine(sets.midcast.StatusRemoval,  {
+    head={ name="Vanya Hood", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
     hands={ name="Fanatic Gloves", augments={'MP+20','Healing magic skill +6','"Conserve MP"+2',}},
+    feet={ name="Vanya Clogs", augments={'Healing magic skill +20','"Cure" spellcasting time -7%','Magic dmg. taken -3',}},
     back={ name="Alaunus's Cape", augments={'MND+20','Eva.+20 /Mag. Eva.+20','MND+5','"Cure" potency +10%',}},
+    neck="Incanter's Torque",
+    waist="Bishop's Sash",
+    left_ring="Haoma's Ring",
+    right_ring="Haoma's Ring",
   })
 
 
@@ -201,6 +198,8 @@ function job_get_spell_map(spell, default_map)
       return "CureSolace"
     elseif default_map == "Cure" and state.Buff.Misery then
       return "CureMisery"
+    elseif spell.en:contains("Erase") then
+      return "Erase"
     elseif default_map == "Cure" then
       return "Cure"
     end
@@ -209,4 +208,27 @@ function job_get_spell_map(spell, default_map)
   return default_map
 end
 
+
 -- </editor-fold>
+
+
+
+-- windower.raw_register_event('incoming chunk', function(id, original, modified, injected, blocked)
+--   if id == 0x028 then
+--      local packet = packets.parse('incoming', original)
+--      if packet['Category'] == 8 then
+--        if packet['Param'] == 24931 then
+--          info.IsCasting = true
+--        elseif packet['Param'] == 28787 then
+--          info.IsCasting = false
+--          info.LastCastFailed = true
+--        end
+--      elseif packet['Category'] == 6 then -- Finished JA
+--        info.IsCasting = false
+--        send_command("gs c next_buff")
+--      elseif packet['Category'] == 4 then -- Finished Casting
+--        info.IsCasting = false
+--        send_command("gs c next_buff")
+--      end
+--   end
+-- end)

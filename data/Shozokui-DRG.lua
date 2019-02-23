@@ -272,10 +272,11 @@ function ja_sets()
     right_ring="Niqmaddu Ring",
     back={ name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
   }
+
   sets.precast.JA.Angon = {
-    ammo="Angon",
-    hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}}
+    ammo="Angon", hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect'}}
   }
+
   sets.precast.JA.SpiritLink = {
     head="Vishap Armet +2",
     hands="Peltast's Vambraces +1",
@@ -324,7 +325,7 @@ function ws_sets()
     right_ear="Sherida Earring",
     left_ring="Regal Ring",
     right_ring="Niqmaddu Ring",
-    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}},
+    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
   }
 
   -- Sonic Thrust
@@ -341,7 +342,7 @@ function ws_sets()
     right_ear="Sherida Earring",
     left_ring="Regal Ring",
     right_ring="Niqmaddu Ring",
-    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}},
+    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
   }
 
   -- Geirskogul (Yeah, right lol)
@@ -366,10 +367,38 @@ function ws_sets()
   sets.precast.WS.Drakesbane.AtkCapped = set_combine(sets.precast.WS.Drakesbane, {})
 
   -- Impulse Drive
-  sets.precast.WS.ImpulseDrive = set_combine(sets.precast.CamlannsTorment, {})
+  sets.precast.WS.ImpulseDrive = {
+    ammo="Knobkierrie",
+    head={ name="Valorous Mask", augments={'Weapon skill damage +3%','STR+6','Attack+14',}},
+    body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
+    hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},
+    legs="Vishap Brais +3",
+    feet="Sulev. Leggings +2",
+    neck="Dgn. Collar +2",
+    waist="Fotia Belt",
+    left_ear="Ishvara Earring",
+    right_ear="Sherida Earring",
+    left_ring="Regal Ring",
+    right_ring="Niqmaddu Ring",
+    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
+  }
 
   -- Wheeling Thrust
-  sets.precast.WS.WheelingThrust = set_combine(sets.precast.CamlannsTorment, {})
+  sets.precast.WS.WheelingThrust = {
+    ammo="Knobkierrie",
+    head={ name="Valorous Mask", augments={'Weapon skill damage +3%','STR+6','Attack+14',}},
+    body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
+    hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},
+    legs="Vishap Brais +3",
+    feet="Sulev. Leggings +2",
+    neck="Dgn. Collar +2",
+    waist="Fotia Belt",
+    left_ear="Ishvara Earring",
+    right_ear="Sherida Earring",
+    left_ring="Regal Ring",
+    right_ring="Niqmaddu Ring",
+    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
+  }
 end
 
 
@@ -426,6 +455,9 @@ function job_self_command(cmdParams, eventArgs)
 end
 
 function job_precast(spell, action, spellMap, eventArgs)
+  if spell.en == "Angon" then
+    send_command("input /equip ammo 'Angon'")
+  end
 end
 
 function job_get_spell_map(spell, default_map)
@@ -439,8 +471,6 @@ function job_get_spell_map(spell, default_map)
     return "SoulJump"
   elseif spell.en == "Spirit Link" then
     return "SpiritLink"
-  elseif spell.en == "Angon" then
-    return "Angon"
   elseif spell.en:contains("Camlann") then
     return "CamlannsTorment"
   elseif spell.en:contains("Stardiver") then

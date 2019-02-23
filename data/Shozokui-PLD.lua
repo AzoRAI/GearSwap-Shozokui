@@ -52,6 +52,7 @@ function user_setup()
   info.MacroBook = {3, 1}
 
   -- Main Sword
+  -- info.Sword = "Sequence"
   info.Sword = "Brilliance"
   -- info.Sword = "Burtgang"
 
@@ -88,7 +89,6 @@ end
 
 function user_keybinds()
   -- Remove default keybinds
-  clear_default_binds()
   bind_key('`', 'gs c cycle Shields')
   bind_key('f9', 'gs c cycle CastingMode')
   bind_key('f10', 'gs c cycle HybridMode')
@@ -568,7 +568,21 @@ end
 
 function ws_sets()
   sets.precast.WS['Chant du Cygne'] = {}
-  sets.precast.WS['Savage Blade'] = {}
+  sets.precast.WS['Savage Blade'] = {
+    ammo="Staunch Tathlum",
+    head="Sulevia's Mask +2",
+    body="Sulevia's Plate. +2",
+    hands={ name="Valorous Mitts", augments={'Accuracy+17 Attack+17','Weapon skill damage +4%','Attack+8',}},
+    legs="Sulev. Cuisses +2",
+    feet="Sulev. Leggings +2",
+    neck="Sanctity Necklace",
+    waist="Grunfeld Rope",
+    left_ear="Ishvara Earring",
+    right_ear="Telos Earring",
+    left_ring="Regal Ring",
+    right_ring="Shukuyu Ring",
+    back="Bleating Mantle",
+  }
   sets.precast.WS['Requiescat'] = {}
   sets.precast.WS['Atonement'] = {}
 end

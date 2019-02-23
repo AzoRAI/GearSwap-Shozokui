@@ -1,15 +1,3 @@
---[[
-
-Copyright 2018, Joshua Tyree
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-]]
-
 -- <editor-fold> Initialization
 
 function get_sets()
@@ -90,20 +78,22 @@ function user_setup()
   -- Hybrid Modes
   --  Normal: Normal Engaged Gear
   --  PDT: Use -DT Gear while engaged
-  state.HybridMode:options('Normal', 'PDT')
+  state.HybridMode:options('Normal', 'Melee', 'PDT')
 
   -- Casting Modes
   --  Normal: Cast in Normal Gear
-  --  Weather: Merge in weather gear
-  state.CastingMode:options('Normal', 'Resistant', 'Weather')
+  --  Weather: Merge in weather geark
+  --  MB: Use magic burst gear
+  state.CastingMode:options('Normal', 'Resistant', 'Weather', 'MB')
 end
 
 function user_keybinds()
-  clear_default_binds()
   bind_key('f9', 'gs c set CastingMode Normal')
+  bind_key('^f9', 'gs c set CastingMode MB')
   bind_key('f10', 'gs c set CastingMode Resistant')
   bind_key('f11', 'gs c set CastingMode Weather')
   bind_key('f12', 'gs c cycle IdleMode')
+  bind_key('^f12', 'gs c cycle HybridMode')
 end
 
 function user_unbind()
@@ -143,7 +133,6 @@ function idle_sets()
 end
 
 function ja_sets()
-  sets.precast.JA['Chainspell'] = {body="Vitiation Tabard"}
 end
 
 function spell_sets()
@@ -156,7 +145,7 @@ function spell_sets()
     body={ name="Vitiation Tabard", augments={'Enhances "Chainspell" effect',}},
     legs="Aya. Cosciales +2", feet={ name="Merlinic Crackows", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','"Conserve MP"+1','INT+6','"Mag.Atk.Bns."+11',}},
     left_ear="Etiolation Earring", right_ear="Loquac. Earring",
-    left_ring="Prolix Ring", right_ring="Kishar Ring",
+    right_ear="Loquac. Earring", left_ring="Prolix Ring",
     waist="Witful Belt", back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
   }
   -- Fast Recast
@@ -216,6 +205,8 @@ function spell_sets()
     back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
   }
   sets.midcast.EnfeeblingMagic = {
+    main={ name="Grioavolr", augments={'"Fast Cast"+6','INT+8','Mag. Acc.+27','"Mag.Atk.Bns."+16',}},
+    sub="Enki Strap",
     ammo="Regal Gem",
     head={ name="Viti. Chapeau +1", augments={'Enhances "Dia III" effect','Enhances "Slow II" effect',}},
     body="Atrophy Tabard +2",
@@ -231,7 +222,7 @@ function spell_sets()
     back={ name="Sucellos's Cape", augments={'MND+20','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10',}},
   }
   sets.midcast.EnfeeblingMagic.Resistant = set_combine(sets.midcast.EnfeeblingMagic, {
-    head="Jhakri Coronal +1",
+    head="Jhakri Coronal +2",
     feet="Jhakri Pigaches +2",
   })
   sets.midcast['Dia III'] = set_combine(sets.midcast.EnfeeblingMagic, {head="Vitiation Chapeau +1"})
@@ -239,8 +230,29 @@ function spell_sets()
   sets.midcast['Bio III'] = set_combine(sets.midcast.EnfeeblingMagic, {legs="Vitiation Tights"})
   sets.midcast['Paralyze II'] = set_combine(sets.midcast.EnfeeblingMagic, {feet="Vitiation boots +1"})
   sets.midcast['Stun'] = sets.midcast.MagicAccuracy
-  sets.midcast['Frazzle II'] = sets.midcast.MagicAccuracy
-  sets.midcast['Frazzle III'] = sets.midcast.EnfeeblingMagic
+
+  sets.midcast.DarkMagic = {
+    right_ring="Evanescence Ring",
+  }
+  sets.midcast.ElementalMagic = {
+    main={ name="Grioavolr", augments={'"Fast Cast"+6','INT+8','Mag. Acc.+27','"Mag.Atk.Bns."+16',}},
+    sub="Enki Strap",
+    ammo="Pemphredo Tathlum",
+    head={ name="Merlinic Hood", augments={'"Mag.Atk.Bns."+18','Magic burst dmg.+10%','CHR+3','Mag. Acc.+11',}},
+    body={ name="Merlinic Jubbah", augments={'Mag. Acc.+24 "Mag.Atk.Bns."+24','Magic Damage +14','VIT+6','Mag. Acc.+10','"Mag.Atk.Bns."+13',}},
+    hands={ name="Merlinic Dastanas", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst dmg.+9%','CHR+1','"Mag.Atk.Bns."+11',}},
+    legs={ name="Merlinic Shalwar", augments={'Mag. Acc.+23 "Mag.Atk.Bns."+23','Mag. crit. hit dmg. +10%','Mag. Acc.+11',}},
+    feet={ name="Merlinic Crackows", augments={'"Mag.Atk.Bns."+23','Magic burst dmg.+7%','CHR+1','Mag. Acc.+12',}},
+    neck="Mizu. Kubikazari",
+    waist="Hachirin-no-Obi",
+    left_ear="Friomisi Earring",
+    right_ear="Loquac. Earring",
+    left_ring="Locus Ring",
+    right_ring="Vertigo Ring",
+    back="Twilight Cape",
+  }
+
+  sets.midcast.Sleepga = sets.midcast.EnfeeblingMagic.Resistant
 
   ---- Enhancing Magic
   sets.midcast.Enhancing = {
@@ -268,10 +280,65 @@ function spell_sets()
   sets.midcast.EnhancingComposure = set_combine(sets.midcast.Enhancing, {})
 end
 
+
+function tp_sets()
+  sets.engaged = {
+    ammo="Ginsen",
+    head="Aya. Zucchetto +2",
+    body="Ayanmo Corazza +2",
+    hands="Aya. Manopolas +2",
+    legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
+    feet={ name="Carmine Greaves +1", augments={'Accuracy+12','DEX+12','MND+20',}},
+    neck="Ainia Collar",
+    waist="Windbuffet Belt +1",
+    left_ear="Telos Earring",
+    right_ear="Sherida Earring",
+    left_ring="Petrov Ring",
+    right_ring="Rajas Ring",
+    back={ name="Sucellos's Cape", augments={'DEX+20','Accuracy+20 Attack+20','Attack+10','"Store TP"+10','Damage taken-5%',}},
+  }
+end
+
+function ws_sets()
+  sets.precast.WS['Chant du Cygne'] = {
+    ammo="Jukukik Feather",
+    head="Jhakri Coronal +2",
+    body="Jhakri Robe +2",
+    hands="Atrophy Gloves +2",
+    legs="Jhakri Slops +1",
+    feet="Thereoid Greaves",
+    neck="Fotia Gorget",
+    waist="Fotia Belt",
+    left_ear="Telos Earring",
+    right_ear="Sherida Earring",
+    left_ring="Petrov Ring",
+    right_ring="Rajas Ring",
+    back="Bleating Mantle",
+  }
+
+  sets.precast.WS['Aeolian Edge'] = {
+    ammo="Pemphredo Tathlum",
+    head="Ea Hat",
+    body="Ea Houppelande",
+    hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    legs={ name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    feet="Jhakri Pigaches +2",
+    neck="Mizu. Kubikazari",
+    waist="Aswang Sash",
+    left_ear="Friomisi Earring",
+    right_ear="Digni. Earring",
+    left_ring="Shiva Ring",
+    right_ring="Vertigo Ring",
+    back="Seshaw Cape",
+  }
+end
+
 function init_gear_sets()
   idle_sets()
   ja_sets()
   spell_sets()
+  tp_sets()
+  ws_sets()
 end
 
 -- </editor-fold>
@@ -283,18 +350,27 @@ function job_precast(spell)
 end
 
 function job_post_midcast(spell, action, spellMap, eventArgs)
+
 end
 
 function job_get_spell_map(spell, default_spell_map)
   map = default_spell_map
 
   if spell.action_type == "Magic" then
-    if info.Debuffs[spell.english] ~= nil then
+    if info.Debuffs[spell.english] then
       map = "EnfeeblingMagic"
+    elseif spell:contains("Sleep") then
+      map = "Sleepga"
+    elseif spell.english:startswith('Refresh') then
+      map = "Refresh"
     elseif spell.english:startswith('En') then
       map = "EnSpells"
     elseif spell.english:startswith('Gain') then
       map = "GainSpells"
+    elseif spell.skill == 'Elemental Magic' then
+      map = "ElementalMagic"
+    elseif spell.skill == 'Dark Magic' then
+      map = "DarkMagic"
     elseif spell.skill == 'Enhancing Magic' then
       if spell.target.type == 'PLAYER' and state.Buff.Composure then
         map = "EnhancingComposure"
@@ -305,6 +381,16 @@ function job_get_spell_map(spell, default_spell_map)
   end
 
   return map
+end
+
+function job_state_change(stateField, newValue, oldValue)
+  if stateField == 'Hybrid Mode' then
+    if newValue == "Melee" or newValue == "PDT" then
+      disable('main', 'sub')
+    else
+      enable('main', 'sub')
+    end
+  end
 end
 
 -- </editor-fold>

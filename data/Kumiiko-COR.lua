@@ -1,15 +1,3 @@
---[[
-
-Copyright 2018, Joshua Tyree
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-]]
-
 -- <editor-fold> Initialization
 
 function get_sets()
@@ -52,10 +40,10 @@ function user_setup()
 
 
   -- Bullet Definitions
-  gear.RAbullet = "Eminent Bullet"
-  gear.WSBullet = "Eminent Bullet"
-  gear.MAbullet = "Orichalc. Bullet"
-  gear.QDbullet = "Eminent Bullet"
+  gear.RAbullet = "Chrono Bullet"
+  gear.WSBullet = "Chrono Bullet"
+  gear.MAbullet = "Chrono Bullet"
+  gear.QDbullet = "Chrono Bullet"
   options.ammo_warning_limit = 15
 end
 
@@ -99,7 +87,20 @@ function dt_sets()
 end
 
 function tp_sets()
-  sets.engaged = {}
+  sets.engaged = {
+    head={ name="Adhemar Bonnet +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+    body={ name="Adhemar Jacket +1", augments={'DEX+12','AGI+12','Accuracy+20',}},
+    hands={ name="Adhemar Wrist. +1", augments={'AGI+12','Rng.Acc.+20','Rng.Atk.+20',}},
+    legs={ name="Carmine Cuisses +1", augments={'Accuracy+20','Attack+12','"Dual Wield"+6',}},
+    feet="Mummu Gamash. +2",
+    neck="Ainia Collar",
+    waist="Windbuffet Belt",
+    left_ear="Brutal Earring",
+    right_ear="Digni. Earring",
+    left_ring="Rajas Ring",
+    right_ring="Ilabrat Ring",
+    back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Acc.+5','"Store TP"+10',}},
+  }
 
 
   -- Engaged with Ranged Weapon
@@ -148,17 +149,16 @@ function ws_sets()
   }
 
   sets.precast.WS['Leaden Salute'] = {
-    ammo=gear.MAbullet,
-    head="Pixie Hairpin +1",
+    head="Mummu Bonnet +1",
     body={ name="Lanun Frac +1", augments={'Enhances "Loaded Deck" effect',}},
     hands={ name="Carmine Fin. Ga. +1", augments={'Rng.Atk.+20','"Mag.Atk.Bns."+12','"Store TP"+6',}},
     legs="Laksa. Trews +2",
     feet={ name="Adhe. Gamashes +1", augments={'HP+65','"Store TP"+7','"Snapshot"+10',}},
-    neck="Iskur gorget",
+    neck="Sanctity Necklace",
     waist="Svelt. Gouriz +1",
-    left_ear="Ishvara Earring",
+    left_ear="Hermetic Earring",
     right_ear="Friomisi Earring",
-    left_ring="Dingir ring",
+    left_ring="Ilabrat Ring",
     right_ring="Arvina Ringlet +1",
     back={ name="Camulus's Mantle", augments={'AGI+20','Rng.Acc.+20 Rng.Atk.+20','Rng.Atk.+10','Weapon skill damage +10%',}},
   }
