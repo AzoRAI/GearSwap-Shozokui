@@ -27,7 +27,7 @@ function user_setup()
   info.UseBlinkMeNot = false
 
   -- If using lockstyles, set to equipset to use
-  info.LockstyleSet = 3
+  info.LockstyleSet = 2
 
   -- Default Macro Book [Book, Page]
   info.MacroBook = {3, 1}
@@ -66,11 +66,11 @@ function user_setup()
   -- Update Default Shield State
   update_melee_groups()
   update_combat_weapon()
+  update_combat_form()
 end
 
 function user_keybinds()
   -- Remove default keybinds
-  clear_default_binds()
   bind_key('`', 'gs c cycle JumpMode')
   bind_key('f9', 'gs c cycle OffenseMode')
   bind_key('f10', 'gs c cycle HybridMode')
@@ -96,7 +96,7 @@ function idle_sets()
     head="Flam. Zucchetto +2",
     body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
     hands="Sulev. Gauntlets +2",
-    legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
+    legs="Vishap Brais +3",
     feet={ name="Ptero. Greaves +3", augments={'Enhances "Empathy" effect',}},
     neck="Dgn. Collar +2",
     waist="Flume Belt",
@@ -114,15 +114,15 @@ function tp_sets()
     ammo="Ginsen",
     head="Flam. Zucchetto +2",
     body="Dagon Breast.",
-    hands="Sulev. Gauntlets +2",
+    hands={ name="Acro Gauntlets", augments={'Accuracy+20','"Store TP"+5','DEX+10',}},
     legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
     feet="Flam. Gambieras +2",
     neck="Anu Torque",
     waist="Ioskeha Belt",
-    left_ear="Genmei Earring",
+    left_ear="Brutal Earring",
     right_ear="Sherida Earring",
-    left_ring="Defending Ring",
-    right_ring="Vocane Ring",
+    left_ring="Petrov Ring",
+    right_ring="Niqmaddu Ring",
     back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','"Dbl.Atk."+10',}},
   }
 
@@ -133,6 +133,27 @@ function tp_sets()
     left_ring="Flamma Ring",
     back={ name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
   }
+
+  sets.engaged.DW = set_combine(sets.engaged, {
+    ammo="Ginsen",
+    head="Flam. Zucchetto +2",
+    body="Dagon Breast.",
+    hands="Flam. Manopolas +2",
+    legs="Flamma Dirs +2",
+    feet="Flam. Gambieras +2",
+    neck="Anu Torque",
+    waist="Reiki Yotai",
+    left_ear="Suppanomimi",
+    right_ear="Sherida Earring",
+    left_ring="Petrov Ring",
+    right_ring="Niqmaddu Ring",
+    back={ name="Brigantia's Mantle", augments={'DEX+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10',}},
+  })
+
+  sets.engaged.Acc.DW = set_combine(sets.engaged.Acc, {
+    left_ear="Suppanomimi",
+    waist="Reiki Yotai"
+  })
 
   -- DT Hybrid Set
   sets.engaged.PDT = set_combine(sets.engaged, {
@@ -152,7 +173,7 @@ function tp_sets()
     head="Flam. Zucchetto +2",
     body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
     hands="Sulev. Gauntlets +2",
-    legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
+    legs="Vishap Brais +3",
     feet={ name="Ptero. Greaves +3", augments={'Enhances "Empathy" effect',}},
     neck="Dgn. Collar +2",
     waist="Flume Belt",
@@ -166,9 +187,6 @@ function tp_sets()
   sets.engaged.WyvernDT.Acc = set_combine(sets.engaged.WyvernDT, {})
 
   tp_sets_trishula()
-  tp_sets_gungnir()
-  tp_sets_ryunohige()
-  tp_sets_rhongomiant()
 end
 
 function tp_sets_trishula()
@@ -202,12 +220,13 @@ function tp_sets_trishula()
     left_ring="Defending Ring",
     right_ring="Vocane Ring",
   })
+
   sets.engaged.Trishula.WyvernDT = set_combine(sets.engaged.Trishula, {
     ammo="Ginsen",
     head="Flam. Zucchetto +2",
     body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
     hands="Sulev. Gauntlets +2",
-    legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
+    legs="Vishap Brais +3",
     feet={ name="Ptero. Greaves +3", augments={'Enhances "Empathy" effect',}},
     neck="Dgn. Collar +2",
     waist="Flume Belt",
@@ -219,24 +238,6 @@ function tp_sets_trishula()
   })
 end
 
-function tp_sets_gungnir()
-  sets.engaged.Gungnir = {}
-  sets.engaged.Gungnir.Acc = {}
-end
-
-function tp_sets_ryunohige()
-  sets.engaged.Ryunohige = {}
-  sets.engaged.Ryunohige.Acc = {}
-  sets.engaged.Ryunohige.AM3 = {}
-  sets.engaged.Ryunohige.AM3.Acc = {}
-end
-
-function tp_sets_rhongomiant()
-  sets.engaged.Rhongomiant = {}
-  sets.engaged.Rhongomiant.Acc = {}
-  sets.engaged.Rhongomiant.AM3 = {}
-  sets.engaged.Rhongomiant.AM3.Acc = {}
-end
 
 function ja_sets()
   -- DRG JA sets
@@ -246,7 +247,7 @@ function ja_sets()
     body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
     hands="Vis. Fng. Gaunt. +2",
     legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
-    feet="Vishap Greaves +2",
+    feet="Ostro Greaves",
     neck="Anu Torque",
     waist="Ioskeha Belt",
     left_ear="Telos Earring",
@@ -263,7 +264,7 @@ function ja_sets()
     body="Vishap Mail +3",
     hands={ name="Acro Gauntlets", augments={'Accuracy+20','"Store TP"+5','DEX+10',}},
     legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
-    feet="Vishap Greaves +2",
+    feet="Ostro Greaves",
     neck="Anu Torque",
     waist="Ioskeha Belt",
     left_ear="Telos Earring",
@@ -289,11 +290,13 @@ function ja_sets()
 end
 
 function ws_sets()
+
+
   -- Stardiver
   sets.precast.WS.Stardiver = {
     ammo="Knobkierrie",
     head={ name="Ptero. Armet +3", augments={'Enhances "Deep Breathing" effect',}},
-    body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
+    body="Dagon Breast.",
     hands="Sulev. Gauntlets +2",
     legs="Sulev. Cuisses +2",
     feet={ name="Ptero. Greaves +3", augments={'Enhances "Empathy" effect',}},
@@ -308,14 +311,31 @@ function ws_sets()
   sets.precast.WS.Stardiver.AtkCapped = set_combine(sets.precast.WS.Stardiver, {
     head="Flam. Zucchetto +2",
     body="Dagon Breast.",
-    feet="Flam. Gambieras +2"
+    feet="Flam. Gambieras +2",
+    neck="Dgn. Collar +2",
   })
 
   -- Camlann's Torment
   sets.precast.WS.CamlannsTorment = {
     ammo="Knobkierrie",
     head={ name="Valorous Mask", augments={'Weapon skill damage +3%','STR+6','Attack+14',}},
-    body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
+    body="Dagon Breast.",
+    hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},
+    legs="Vishap Brais +3",
+    feet="Sulev. Leggings +2",
+    neck="Dgn. Collar +2",
+    waist="Fotia Belt",
+    left_ear="Ishvara Earring",
+    right_ear="Sherida Earring",
+    left_ring="Regal Ring",
+    right_ring="Niqmaddu Ring",
+    back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
+  }
+
+  sets.precast.WS.Geirskogul = {
+    ammo="Knobkierrie",
+    head={ name="Valorous Mask", augments={'Weapon skill damage +3%','STR+6','Attack+14',}},
+    body="Dagon Breast.",
     hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},
     legs="Vishap Brais +3",
     feet="Sulev. Leggings +2",
@@ -332,7 +352,7 @@ function ws_sets()
   sets.precast.WS.SonicThrust = {
     ammo="Knobkierrie",
     head={ name="Valorous Mask", augments={'Weapon skill damage +3%','STR+6','Attack+14',}},
-    body={ name="Ptero. Mail +3", augments={'Enhances "Spirit Surge" effect',}},
+    body="Dagon Breast.",
     hands={ name="Ptero. Fin. G. +3", augments={'Enhances "Angon" effect',}},
     legs="Vishap Brais +3",
     feet="Sulev. Leggings +2",
@@ -344,9 +364,6 @@ function ws_sets()
     right_ring="Niqmaddu Ring",
     back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
   }
-
-  -- Geirskogul (Yeah, right lol)
-  sets.precast.WS.Geirskogul = {}
 
   -- Drakesbane
   sets.precast.WS.Drakesbane = {
@@ -399,6 +416,9 @@ function ws_sets()
     right_ring="Niqmaddu Ring",
     back={ name="Brigantia's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+5','Weapon skill damage +10%',}},
   }
+
+  -- Savage Blade
+  sets.precast.WS.SavageBlade = set_combine(sets.precast.WS.CamlannsTorment, {waist="Grunfeld Rope"})
 end
 
 
@@ -413,6 +433,17 @@ end
 
 -- <editor-fold> Events/Hooks
 
+function update_combat_form()
+  if player.sub_job == 'NIN' or player.sub_job == 'DNC' then
+       if player.equipment.sub and not player.equipment.sub:contains('Shield') and
+          player.equipment.sub ~= 'Aegis' and player.equipment.sub ~= 'Ochain' then
+           state.CombatForm:set('DW')
+       else
+           state.CombatForm:reset()
+       end
+   end
+end
+
 function update_melee_groups()
   classes.CustomMeleeGroups:clear()
 
@@ -422,8 +453,6 @@ function update_melee_groups()
 
   if state.Buff.AM3 then
     classes.CustomMeleeGroups:append('AM3')
-  elseif state.Buff.AM2 or state.Buff.AM then
-    classes.CustomMeleeGroups:append('AM')
   end
 end
 
@@ -446,6 +475,10 @@ end
 
 function customize_melee_set(meleeSet)
   return meleeSet
+end
+
+function job_update(cmdParams, eventArgs)
+  update_combat_form()
 end
 
 function job_state_change(stateField, newValue, oldValue)
@@ -471,6 +504,8 @@ function job_get_spell_map(spell, default_map)
     return "SoulJump"
   elseif spell.en == "Spirit Link" then
     return "SpiritLink"
+  elseif spell.en:contains("Geir") then
+    return "Geirskogul"
   elseif spell.en:contains("Camlann") then
     return "CamlannsTorment"
   elseif spell.en:contains("Stardiver") then
@@ -483,22 +518,13 @@ function job_get_spell_map(spell, default_map)
     return "Geirskogul"
   elseif spell.en == "Sonic Thrust" then
     return "SonicThrust"
+  elseif spell.en == "Savage Blade" then
+    return "SavageBlade"
   end
   return default_map
 end
 
-
-function adjust_jump_mode()
-  if pet.isvalid == false and state.JumpMode.value == "Spirit" then
-    send_command("gs c set JumpMode Normal")
-    windower.add_to_chat(67, "Player has no valid Pet")
-  end
-end
-
-
 function job_pretarget(spell, action, spellMap, eventArgs)
-  -- When you don't have a pet, you want to use normal jumps instead of spirit jumps
-  adjust_jump_mode()
 
   local contains = function(arr, item)
     for i=1,#arr do
