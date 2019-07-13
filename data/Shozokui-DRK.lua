@@ -124,10 +124,61 @@ function spell_sets()
     right_ring="Prolix Ring",
   }
 
-  sets.midcast.AspirDrain = {}
-  sets.midcast.En = {}
-  sets.midcast.DreadSpikes = {}
-  sets.midcast.Absorb = {}
+  sets.midcast.AspirDrain = {
+    ammo="Pemphredo Tathlum",
+    body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+    hands="Flam. Manopolas +2",
+    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
+    feet="Ratri Sollerets",
+    neck="Erra Pendant",
+    left_ear="Digni. Earring",
+    right_ear="Dark Earring",
+    left_ring="Kishar Ring",
+    right_ring="Evanescence Ring",
+    back={ name="Niht Mantle", augments={'Attack+7','Dark magic skill +1','"Drain" and "Aspir" potency +25',}},
+  }
+  sets.midcast.En = {
+    ammo="Pemphredo Tathlum",
+    body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
+    feet="Ratri Sollerets",
+    neck="Erra Pendant",
+    waist="Casso Sash",
+    left_ear="Loquac. Earring",
+    right_ear="Dark Earring",
+    left_ring="Stikini Ring",
+    right_ring="Evanescence Ring",
+    back={ name="Niht Mantle", augments={'Attack+7','Dark magic skill +1','"Drain" and "Aspir" potency +25',}},
+  }
+  sets.midcast.DreadSpikes = {
+    ammo="Egoist's Tathlum",
+    head="Ratri Sallet",
+    body="Ratri Plate",
+    hands="Ratri Gadlings",
+    legs="Ratri Cuisses",
+    feet="Ratri Sollerets",
+    neck="Dualism Collar +1",
+    waist="Oneiros Belt",
+    left_ear="Odnowa Earring",
+    right_ear="Odnowa Earring +1",
+    left_ring="Moonbeam Ring",
+    right_ring="Moonbeam Ring",
+    back="Moonbeam Cape",
+  }
+  sets.midcast.Absorb = {
+    ammo="Pemphredo Tathlum",
+    body={ name="Carm. Sc. Mail +1", augments={'Attack+20','"Mag.Atk.Bns."+12','"Dbl.Atk."+4',}},
+    hands="Pavor Gauntlets",
+    legs={ name="Eschite Cuisses", augments={'"Mag.Atk.Bns."+25','"Conserve MP"+6','"Fast Cast"+5',}},
+    feet="Ratri Sollerets",
+    neck="Erra Pendant",
+    left_ear="Digni. Earring",
+    right_ear="Dark Earring",
+    left_ring="Kishar Ring",
+    right_ring="Evanescence Ring",
+    waist="Casso Sash",
+    back="Chuparrosa Mantle",
+  }
   sets.midcast.ElementalMagic = {}
   sets.midcast.DarkMagic = {}
 end
@@ -142,7 +193,7 @@ function tp_sets()
     feet="Flam. Gambieras +2",
     neck="Abyssal Beads +2",
     waist="Ioskeha Belt",
-    left_ear="Telos Earring",
+    left_ear="Dedition Earring",
     right_ear="Brutal Earring",
     left_ring="Niqmaddu Ring",
     right_ring="Petrov Ring",
@@ -180,16 +231,46 @@ function tp_sets()
     neck="Abyssal Beads +2",
     waist="Sailfi Belt +1",
     left_ear="Telos Earring",
-    right_ear="Digni. Earring",
+    right_ear="Dedition Earring",
     left_ring="Niqmaddu Ring",
     right_ring="Flamma Ring",
     back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
   }
+
+  sets.engaged.Liberator.AM3.PDT = set_combine(sets.engaged.Liberator.AM3, {
+    waist="Flume Belt",
+    right_ear="Genmei Earring",
+    left_ring="Defending Ring",
+    right_ring="Vocane Ring",
+  })
+
+  sets.engaged.Anguta = {
+    ammo="Ginsen",
+    head="Flam. Zucchetto +2",
+    body="Dagon Breast.",
+    hands={ name="Acro Gauntlets", augments={'Accuracy+20','"Store TP"+5','DEX+10',}},
+    legs={ name="Valor. Hose", augments={'Accuracy+25 Attack+25','"Store TP"+7',}},
+    feet="Flam. Gambieras +2",
+    neck="Abyssal Beads +2",
+    waist="Ioskeha Belt",
+    left_ear="Dedition Earring",
+    right_ear="Brutal Earring",
+    left_ring="Niqmaddu Ring",
+    right_ring="Petrov Ring",
+    back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','Accuracy+10','"Store TP"+10','Damage taken-5%',}},
+  }
+  sets.engaged.Anguta.Acc = sets.engaged.Anguta
+  sets.engaged.Anguta.PDT = set_combine(sets.engaged.Anguta, {
+    waist="Flume Belt",
+    right_ear="Genmei Earring",
+    left_ring="Defending Ring",
+    right_ring="Vocane Ring",
+  })
 end
 
 function ws_sets()
 
-  sets.precast.WS['Insurgency'] = {
+  WSD_GEAR = {
     ammo="Knobkierrie",
     head="Ratri Sallet",
     body="Ignominy Cuirass +3",
@@ -206,6 +287,32 @@ function ws_sets()
   }
 
 
+  sets.precast.WS['Insurgency'] = WSD_GEAR
+  sets.precast.WS['Spinning Scythe'] = WSD_GEAR
+  sets.precast.WS['Cross Reaper'] = WSD_GEAR
+  sets.precast.WS['Entropy'] = set_combine(WSD_GEAR, {
+    neck="Fotia Gorget",
+    left_ring="Shiva Ring +1",
+    right_ring="Shiva Ring +1",
+  })
+
+
+  sets.precast.WS['Torcleaver'] = {
+    ammo="Knobkierrie",
+    head="Ratri Sallet",
+    body="Ignominy Cuirass +3",
+    hands={ name="Odyssean Gauntlets", augments={'Accuracy+4','Weapon skill damage +4%','DEX+5','Attack+9',}},
+    legs={ name="Fall. Flanchard +3", augments={'Enhances "Muted Soul" effect',}},
+    feet="Sulev. Leggings +2",
+    neck="Abyssal Beads +2",
+    waist="Fotia Belt",
+    left_ear="Ishvara Earring",
+    right_ear="Brutal Earring",
+    left_ring="Niqmaddu Ring",
+    right_ring="Regal Ring",
+    back={ name="Ankou's Mantle", augments={'STR+20','Accuracy+20 Attack+20','STR+10','Weapon skill damage +10%',}},
+  }
+
 end
 
 -- Set up gear sets.
@@ -221,6 +328,7 @@ end
 
 
 -- <editor-fold> Events/Hooks
+
 
 function job_get_spell_map(spell, defualt_map)
   if spell.en:contains("Absorb") then

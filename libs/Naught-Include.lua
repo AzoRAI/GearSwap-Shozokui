@@ -14,11 +14,19 @@ function init_include()
     user_keybinds()
   end
 
+  -- Handle Spell Map registrations 
+  if user_spell_maps then
+    user_spell_maps()
+  end
+
   -- Track when sub job changes
   windower.raw_register_event('job change', sub_job_change)
 
   -- Include the bard library
   include('Naught-Bard.lua')
+
+  -- Inlucde the commands library
+  include('Naught-Commands.lua')
 
   -- Let the play know what's going on
   echo_status()

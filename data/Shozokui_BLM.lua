@@ -11,6 +11,12 @@ function get_sets()
 end
 
 function job_setup()
+  info.Debuffs = S{
+    'Burn', 'Frost', 'Choke', 'Rasp', 'Shock', 'Drown',
+    'Poison', 'Poison II', 'Poisonga', 'Sleep', 'Sleepga', 'Sleep II', 'Sleepga II',
+    'Blind', 'Break', 'Breakga', 'Bind', 'Dispel'
+  }
+
   -- Track Buffs
   state.Buff.DarkArts = buffactive['Dark Arts'] or false
   state.Buff.LightArts = buffactive['Light Arts'] or false
@@ -48,7 +54,7 @@ function user_setup()
   -- Casting Modes
   --  Normal: Cast in Normal Gear
   --  Weather: Merge in weather gear
-  state.CastingMode:options('Normal', 'FreeNuke', 'MP')
+  state.CastingMode:options('Normal', 'Spaekona', 'OccultAcumen', 'FreeNuke')
 end
 
 function user_keybinds()
@@ -71,11 +77,12 @@ end
 function idle_sets()
 
   sets.idle = {
-    head="Ea Hat",
-    body="Mallquis Saio +1",
+    ammo="Staunch Tathlum",
+    head="Mallquis Chapeau +1",
+    body="Mallquis Saio +2",
     hands="Shrieker's Cuffs",
     legs="Assid. Pants +1",
-    feet="Mallquis Clogs +1",
+    feet="Mallquis Clogs +2",
     neck="Loricate Torque +1",
     waist="Fucho-no-Obi",
     left_ear="Ethereal Earring",
@@ -99,12 +106,29 @@ function idle_sets()
     right_ring="Paguroidea Ring",
     back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-4%',}},
   }
+
+  sets.idle.Town = {
+    ammo="Pemphredo Tathlum",
+    head="Ea Hat +1",
+    body="Ea Houppe. +1",
+    hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    legs="Ea Slops +1",
+    feet={ name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    neck="Src. Stole +2",
+    waist="Hachirin-no-Obi",
+    left_ear="Barkaro. Earring",
+    right_ear="Regal Earring",
+    left_ring="Mujin Band",
+    right_ring="Shiva Ring +1",
+    back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-4%',}},
+  }
 end
 
 function ja_sets()
 end
 
 function spell_sets()
+  -- 75% Fast Cast
   sets.precast.FC = {
     ammo="Impatiens",
     head={ name="Merlinic Hood", augments={'"Fast Cast"+5','INT+3','"Mag.Atk.Bns."+10',}},
@@ -112,47 +136,101 @@ function spell_sets()
     hands={ name="Merlinic Dastanas", augments={'"Mag.Atk.Bns."+9','"Fast Cast"+5',}},
     legs={ name="Psycloth Lappas", augments={'MP+80','Mag. Acc.+15','"Fast Cast"+7',}},
     feet={ name="Merlinic Crackows", augments={'"Fast Cast"+6','CHR+5','Mag. Acc.+12',}},
-    neck="Stoicheion Medal",
+    neck="Voltsurge Torque",
     waist="Witful Belt",
     left_ear="Etiolation Earring",
     right_ear="Loquac. Earring",
-    left_ring="Prolix Ring",
-    right_ring="Kishar Ring",
+    left_ring="Kishar Ring",
+    right_ring="Prolix Ring",
+    back={ name="Taranus's Cape", augments={'INT+4','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Damage taken-5%',}},
+  }
+  sets.precast.FastRecast = sets.precast.FC
+  sets.precast.Impact = {body="Twlight Cloak"}
+
+  -- Main Debuff / MACC Gear
+
+  sets.midcast.Debuff = {
+    ammo="Pemphredo Tathlum",
+    head="Ea Hat +1",
+    body="Ea Houppe. +1",
+    hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    legs="Ea Slops +1",
+    feet={ name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    neck="Src. Stole +2",
+    waist="Eschan Stone",
+    left_ear="Regal Earring",
+    right_ear="Digni. Earring",
+    left_ring="Mallquis Ring",
+    right_ring="Vertigo Ring",
+    back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-4%',}},
+  }
+
+  -- Aspir
+
+  sets.midcast.Aspir = {
+    ammo="Pemphredo Tathlum",
+    body="Shango Robe",
+    feet={ name="Merlinic Crackows", augments={'"Fast Cast"+6','CHR+5','Mag. Acc.+12',}},
+    neck="Incanter's Torque",
+    waist="Fucho-no-Obi",
+    left_ear="Regal Earring",
+    right_ear="Barkaro. Earring",
+    left_ring="Stikini Ring",
+    right_ring="Evanescence Ring",
     back={ name="Taranus's Cape", augments={'INT+4','Mag. Acc+20 /Mag. Dmg.+20','"Fast Cast"+10','Damage taken-5%',}},
   }
 
 
-  sets.midcast['Elemental Magic'] = {
+
+  -- Max MAB MBD/MBDII
+  -- INT: 288
+  -- MACC: 239
+  -- MAB: 356
+  -- MBD: 39
+  -- MBD II: 35
+  sets.midcast.ElementalMagic = {
     ammo="Pemphredo Tathlum",
-    head="Ea Hat",
-    body="Ea Houppelande",
+    head="Ea Hat +1",
+    body="Ea Houppe. +1",
     hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-    legs={ name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-    feet="Jhakri Pigaches +2",
+    legs="Ea Slops +1",
+    feet={ name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
     neck="Mizu. Kubikazari",
-    waist="Eschan Stone",
-    left_ear="Friomisi Earring",
-    right_ear="Barkaro. Earring",
-    left_ring="Locus Ring",
-    right_ring="Mujin Band",
+    waist="Hachirin-no-Obi",
+    left_ear="Barkaro. Earring",
+    right_ear="Regal Earring",
+    left_ring="Mujin Band",
+    right_ring="Shiva Ring +1",
     back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-4%',}},
   }
 
-  sets.midcast['Elemental Magic'].MP = set_combine(sets.midcast['Elemental Magic'], { body="Spaekona's Coat +2", legs={ name="Merlinic Shalwar", augments={'Mag. Acc.+19','Magic burst dmg.+10%','MND+1','"Mag.Atk.Bns."+15',}}, })
+  -- Spaekona Casting Mode
+  sets.midcast.ElementalMagic.Spaekona = set_combine(sets.midcast.ElementalMagic, { body="Spaekona's Coat +2" })
 
-  sets.midcast['Elemental Magic'].FreeNuke = {
+  -- Occult Accumen Casting Mode
+  sets.midcast.ElementalMagic.OccultAcumen = {
+    neck="Lissome Necklace",
+    waist="Oneiros Rope",
+    left_ear="Dedition Earring",
+    right_ear="Telos Earring",
+    left_ring="Petrov Ring",
+    right_ring="Rajas Ring",
+  }
+
+  -- Free Nuke Set
+  sets.midcast.ElementalMagic.FreeNuke = {
     ammo="Pemphredo Tathlum",
-    head="Ea Hat",
-    body={ name="Merlinic Jubbah", augments={'Mag. Acc.+20 "Mag.Atk.Bns."+20','Magic burst dmg.+6%',}},
+    head="Ea Hat +1",
+    body="Ea Houppe. +1",
     hands={ name="Amalric Gages +1", augments={'INT+12','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
     legs={ name="Amalric Slops +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
-    feet="Jhakri Pigaches +2",
-    neck="Mizu. Kubikazari",
-    waist="Eschan Stone",
+    feet={ name="Amalric Nails +1", augments={'MP+80','Mag. Acc.+20','"Mag.Atk.Bns."+20',}},
+    neck="Saevus Pendant +1",
+    waist="Refoccilation Stone",
     left_ear="Friomisi Earring",
     right_ear="Barkaro. Earring",
-    left_ring="Shiva Ring",
-    right_ring="Vertigo Ring",
+    left_ring="Shiva Ring +1",
+    right_ring="Shiva Ring +1",
     back={ name="Taranus's Cape", augments={'INT+20','Mag. Acc+20 /Mag. Dmg.+20','Magic Damage +10','"Mag.Atk.Bns."+10','Damage taken-4%',}},
   }
 end
@@ -175,6 +253,17 @@ function job_post_midcast(spell, action, spellMap, eventArgs)
 end
 
 function job_get_spell_map(spell, default_map)
+  map = default_map
+  if info.Debuffs:contains(spell.en) then
+    map = "Debuff"
+  elseif spell.en:contains("Aspir") then
+    map = "Aspir"
+  elseif spell.en:contains("Impact") then
+    map = "Impact"
+  elseif spell.skill == "Elemental Magic" then
+    map = "ElementalMagic"
+  end
+  return map
 end
 
 -- </editor-fold>

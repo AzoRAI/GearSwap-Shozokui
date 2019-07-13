@@ -8,8 +8,6 @@ function get_sets()
 
   -- Grab the Naught includes
   include('Naught-Include.lua')
-
-  include('Naught-Commands.lua')
 end
 
 -- Setup vars that are user-independent.  state.Buff vars initialized here will automatically be tracked.
@@ -28,13 +26,13 @@ function user_setup()
   info.UseBlinkMeNot = true
 
   -- If using lockstyles, set to equipset to use
-  info.LockstyleSet = 1
+  info.LockstyleSet = 2
 
   -- Default Macro Book [Book, Page]
   info.MacroBook = {1, 2}
 
   -- Set up Gear Options
-  info.ExtraSongs = 2
+  info.ExtraSongs = 1
   gear.DummyInstrument = 'Daurdabla'
   gear.MainDagger = {name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10'}}
   gear.SubDagger = {name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10'}}
@@ -42,7 +40,7 @@ function user_setup()
   -- Idle Modes
   --  Normal: Normal Idle Gear (Should be DT set)
   --  Move: Move Speed Gear
-  state.IdleMode:options('Normal', 'Warp')
+  state.IdleMode:options('Normal', 'Move')
 
 
   -- Offense Modes
@@ -61,12 +59,10 @@ function user_setup()
 end
 
 function user_keybinds()
-  -- Remove default keybinds
-  clear_default_binds()
 
   -- Swap Song Modes
   bind_key('`', 'gs c set SongMode Dummy; input /ma "Army\'s Paeon" <me>;')
-  bind_key('f9', 'gs c cycle OffenseMode')
+  bind_key('f9', 'gs c cycle SongMode')
   bind_key('f10', 'gs c cycle CastingMode')
   bind_key('f11', 'gs c cycle HybridMode')
   bind_key('f12', 'gs c cycle IdleMode')
@@ -101,25 +97,23 @@ end
 function idle_sets()
   sets.idle = {
     main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-    sub="Genbu's Shield",
+    sub="Genmei Shield",
     range="Gjallarhorn",
-    head="Inyanga Tiara +2",
-    body="Inyanga Jubbah +2",
-    hands="Inyan. Dastanas +2",
-    legs="Brioso Cannions +2",
-    feet="Fili Cothurnes +1",
+    head="Aya. Zucchetto +2",
+    body="Ayanmo Corazza +1",
+    hands="Aya. Manopolas +2",
+    legs="Aya. Cosciales +2",
+    feet="Aya. Gambieras +1",
     neck="Loricate Torque +1",
-    waist="Fucho-no-Obi",
-    left_ear="Etiolation Earring",
-    right_ear="Odnowa Earring",
-    left_ring="Inyanga Ring",
-    right_ring="Gelatinous Ring",
+    waist="Flume Belt +1",
+    left_ear="Genmei Earring",
+    right_ear="Earthcry Earring",
+    left_ring="Defending Ring",
+    right_ring="Gelatinous Ring +1",
     back="Solemnity Cape",
   }
-  sets.idle.Warp = set_combine(sets.idle, {
-    left_ring="Warp Ring",
-    right_ring="Dim. Ring (Dem)"
-  })
+
+  sets.idle.Move = {feet="Aoidos' Cothurnes +1"}
 end
 
 function dt_sets()
@@ -135,6 +129,9 @@ function ws_sets()
 end
 
 function ja_sets()
+  sets.precast.JA['Soul Voice'] = {legs="Bihu Cannions +3"}
+  sets.precast.JA['Nightingale'] = {feet="Bihu Slippers +3"}
+  sets.precast.JA['Troubador'] = {body="Bihu Jstcorps +1"}
 end
 
 function spell_sets()
@@ -142,66 +139,62 @@ function spell_sets()
 
   -- Fast Cast
   sets.precast.FC = {
-    main="Terra's Staff",
-    sub="Niobid Strap",
-    range="Gjallarhorn",
-    head="Fili Calot +1",
-    body="Inyanga Jubbah +2",
-    hands={ name="Gende. Gages +1", augments={'Phys. dmg. taken -3%','Song spellcasting time -5%',}},
-    legs="Aya. Cosciales +2",
-    feet={ name="Telchine Pigaches", augments={'Mag. Acc.+22','Song spellcasting time -7%',}},
-    neck="Voltsurge Torque",
+    head="Nahtirah Hat",
+    body="Zendik Robe",
+    hands="Gende. Gages +1",
+    legs="Aya. Cosciales +1",
+    feet={ name="Bihu Slippers +3", augments={'Enhances "Nightingale" effect',}},
+    neck="Aoidos' Matinee",
     waist="Witful Belt",
     left_ear="Etiolation Earring",
-    right_ear="Infused Earring",
+    right_ear="Loquac. Earring",
     left_ring="Kishar Ring",
     right_ring="Prolix Ring",
-    back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
+    back="Swith Cape +1",
   }
+
   sets.precast.FC["Honor March"] = set_combine(sets.precast.FC, {range="Marsyas"})
   -- sets.precast['Honor March'] = {range="Marsyas"}
 
   -- Buffs
   sets.midcast['SongBuff'] = {
-    main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-    sub={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
     range="Gjallarhorn",
-    head="Fili Calot +1",
+    head="Brioso Roundlet +2",
     body="Fili Hongreline +1",
-    hands="Fili Manchettes +1",
-    legs="Inyanga Shalwar +2",
-    feet="Brioso Slippers +2",
+    hands="Brioso Cuffs +2",
+    legs={ name="Bihu Cannions +3", augments={'Enhances "Soul Voice" effect',}},
+    feet="Brioso Slippers +3",
     neck="Mnbw. Whistle +1",
-    waist="Fucho-no-Obi",
-    left_ear="Etiolation Earring",
-    right_ear="Odnowa Earring",
-    left_ring="Inyanga Ring",
-    right_ring="Gelatinous Ring",
-    back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
+    waist="Luminary Sash",
+    left_ear="Hermetic Earring",
+    right_ear="Gwati Earring",
+    left_ring="Stikini Ring",
+    right_ring="Stikini Ring",
+    back={ name="Intarabus's Cape", augments={'CHR+5','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+4','"Fast Cast"+10',}},
   }
 
 
 
   -- Debuffs
   sets.midcast['SongDebuff'] = {
-    main={ name="Kali", augments={'Mag. Acc.+15','String instrument skill +10','Wind instrument skill +10',}},
-    sub="Ammurapi Shield",
     range="Gjallarhorn",
     head="Brioso Roundlet +2",
-    body="Brioso Justau. +2",
+    body="Fili Hongreline +1",
     hands="Brioso Cuffs +2",
-    legs="Brioso Cannions +2",
-    feet="Brioso Slippers +2",
+    legs={ name="Bihu Cannions +3", augments={'Enhances "Soul Voice" effect',}},
+    feet="Brioso Slippers +3",
     neck="Mnbw. Whistle +1",
-    waist="Harfner's Sash",
-    left_ear="Etiolation Earring",
-    right_ear="Digni. Earring",
+    waist="Luminary Sash",
+    left_ear="Hermetic Earring",
+    right_ear="Gwati Earring",
     left_ring="Stikini Ring",
     right_ring="Stikini Ring",
-    back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
+    back={ name="Intarabus's Cape", augments={'CHR+5','Mag. Acc+20 /Mag. Dmg.+20','Mag. Acc.+4','"Fast Cast"+10',}},
   }
   sets.midcast['SongDebuffResistant'] = set_combine(sets.midcast.SongDebuff, {body="Brioso Justau. +2",})
+
   sets.midcast['Magic Finale'] = sets.midcast['SongDebuffResistant']
+
   sets.midcast['Silence'] = sets.midcast['SongDebuff']
 
   -- Fast Recast
@@ -212,10 +205,16 @@ function spell_sets()
   sets.midcast['Honor March'] = set_combine(sets.midcast['SongBuff'], {range="Marsyas"})
 
   -- Extra Songs
-  sets.midcast['Dummy'] = set_combine(sets.precast.FC, {range=gear.DummyInstrument})
+  sets.midcast['Dummy'] = {
+    -- Main, Sub, Ranged
+    main="Marin staff", sub="Achaq grip", range=gear.DummyInstrument,
+    -- Main Slots
+    head="Welkin Crown", body="Sha'ir Manteel", legs="Aya. Cosciales +1",
+    -- Accessories
+    left_ear="Etiolation Earring", waist="Witful Belt", back={ name="Intarabus's Cape", augments={'CHR+20','Mag. Acc+20 /Mag. Dmg.+20','CHR+9','"Fast Cast"+10',}},
+  }
+
   sets.midcast["Army's Paeon"] = sets.midcast['Dummy']
-  sets.midcast["Knight's Minne"] = sets.midcast['Dummy']
-  sets.midcast["Gold Capriccio"] = sets.midcast['Dummy']
 
   sets.midcast.Cure = {
     main="Chatoyant Staff",
@@ -269,73 +268,6 @@ end
 
 
 -- <editor-fold> Job Events
-
---
--- Handle Commands
---
-function job_self_command(cmdParams, eventArgs)
-  -- local inspect = require('inspect');
-  -- add_to_chat(67, inspect(cmdParams))
-  local cmd = cmdParams[1];
-
-  if cmd == "buff" then
-    local rotation = cmdParams[2]
-    if rotation == "ambu" then
-      gs_echo(" ")
-      gs_echo("~ Starting [Ambuscade] buffs. ~")
-      local base_chain =  chain_commands(
-        rotations.march_two_mad,
-        build_command("honor-march")
-      )
-      send_command(base_chain)
-    elseif rotation == "zerg_march" then
-      local base_chain = rotations.two_min_march
-      base_chain = chain_commands(base_chain,
-        build_command("marcato"),
-        build_command("honor-march")
-      )
-      send_command(nitro(base_chain))
-    elseif rotation == "zerg_cl130" then
-      local base_chain = rotations.two_min_mad
-      base_chain = chain_commands(base_chain,
-        build_command("marcato"),
-        build_command("honor-march")
-      )
-      send_command(nitro(base_chain))
-    elseif rotation == "zerg_cl140" then
-      local buffed = cmdParams[2]
-      local base_chain = rotations.march_two_mad
-      if buffed == "buffed" then
-        base_chain = chain_commands(base_chain,
-          build_command("marcato"),
-          build_command("honor-march")
-        )
-        send_command(nitro(base_chain))
-      else
-        base_chain = chain_commands(base_chain,
-          build_command("honor-march")
-        )
-      end
-
-    end
-  elseif cmd == "delve" then
-    local buffed = cmdParams[2]
-    local chain = chain_commands(
-      build_command("valor-minuet-v"),
-      build_command("valor-minuet-iv"),
-      build_command("armys-paeon"),
-      build_command("gold-capriccio"),
-      build_command("victory-march")
-    )
-    if buffed == "nitro" then
-      send_command(nitro(chain_commands(chain, build_command("marcato", "me", 3.5), build_command("honor-march"))))
-    else
-      send_command(chain_commands(chain, build_command("honor-march")))
-    end
-  elseif cmd == "travel" then
-    equip({ left_ring="Dim. Ring (Dem)", right_ring="Warp Ring" })
-  end
-end
 
 --
 -- Callback for when player is about to cast spell
